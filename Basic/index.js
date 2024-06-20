@@ -19,9 +19,10 @@ const io = new Server(server)
 
 io.on('connection', (socket) => {
     console.log('a user connected');
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    });
+    socket.on("userMessage", (message) => {
+        console.log("A new Message Recived", message);
+        io.emit("message", message)
+    })
 });
 
 app.get('/', (req, res) => {
