@@ -10,13 +10,19 @@ import { Server } from "socket.io"
 
 const app = express()
 const port = 8080
-const io= 
+
 
 app.use(express.static(path.resolve("./public")))
 const server = http.createServer(app)
 
+const io = new Server(server)
 
-
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
 
 app.get('/', (req, res) => {
     return res.sendFile("./public/index.html")
