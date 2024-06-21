@@ -12,6 +12,7 @@ const app = express()
 const port = 8080
 
 
+
 app.use(express.static(path.resolve("./public")))
 const server = http.createServer(app)
 
@@ -22,6 +23,8 @@ io.on('connection', (socket) => {
     socket.on("userMessage", (message) => {
         console.log("A new Message Recived", message);
         io.emit("message", message)
+        console.log(socket.id);
+
     })
 });
 
